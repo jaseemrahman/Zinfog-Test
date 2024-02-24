@@ -130,6 +130,7 @@ class StudentProfileEditView(View):
 
             
         image = request.FILES.get('image')
+        print("image",image)
         name = request.POST['name']
         email = request.POST['email']
         dob = request.POST['dob']
@@ -145,7 +146,8 @@ class StudentProfileEditView(View):
         
         try:
             data.name=name
-            data.image=image
+            if image:
+                data.image=image
             if dob:
                 dob_date = datetime.strptime(dob, '%Y-%m-%d').date()
                 data.birth_date = dob_date
@@ -194,7 +196,8 @@ class AdminRegistrationPageView(View):
         
         try:
             data.name=name
-            data.image=image
+            if image:
+                data.image=image
             if dob:
                 dob_date = datetime.strptime(dob, '%Y-%m-%d').date()
                 data.birth_date = dob_date
