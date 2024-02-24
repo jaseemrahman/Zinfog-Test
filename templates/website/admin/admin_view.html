@@ -1,0 +1,71 @@
+{% include "website/layout/header.html" %}
+
+<!--app-content open-->
+<div class="main-content app-content mt-0">
+    <div class="side-app">
+
+        <!-- CONTAINER -->
+        <div class="main-container container-fluid">
+
+            <!-- PAGE-HEADER -->
+            <div class="page-header">
+                <h1 class="page-title">Admin</h1>
+            </div>
+            <!-- PAGE-HEADER END -->
+
+            <!-- ROW OPEN -->
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">List Of All Students</h3>
+                        </div>
+                        <div class="card-body">
+                            <form>
+                                <div class="row">
+                                   <div class="form-group col-lg-2 col-12">
+                                        <input type="text" class="form-control" placeholder="Keyword Search " id="searchkey">
+                                    </div>
+
+                                    <div class="form-group col-lg-2 col-12">
+                                        <select name="country" id="status" class="form-control form-select select2"
+                                            data-bs-placeholder="Select Country">
+                                            <option value="">Select</option>
+                                            <option value="True">Active</option>
+                                            <option value="False">Inactive</option>
+
+                                        </select>
+                                    </div>
+
+
+                                    <div class="form-group col-lg-3 col-12">
+                                        <button class="btn btn-primary mr-1" type="button" onclick="filterstudent(1)">Search</button>
+                                        <a class="btn btn-default" href="">Reset</a>
+                                    </div>
+
+                                </div>
+                            </form>
+
+                            <div class="table-responsive mt-4" id="data_table">
+                                {% include 'website/admin/admin_table.html' %}
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- ROW CLOSED -->
+
+
+
+        </div>
+        <!-- CONTAINER END -->
+    </div>
+</div>
+<!--app-content close-->
+
+
+<!-- modal -->
+
+
+{% include "website/layout/footer.html" %}

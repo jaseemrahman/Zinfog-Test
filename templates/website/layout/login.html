@@ -1,0 +1,43 @@
+{% include "website/layout/header.html" %}
+
+<section class="pt-5">
+	<div class="container">
+		<h1 class="text-center" style="color: green; font-size:3em;"><b>ZINFOG CODELABS</b></h1>
+		<hr>
+		
+		{% if messages %}
+        <div id="message_div" class="succs-msg">
+        {% for message in messages %}
+                <label class="form-group" style="">
+                    <p style="color:red;">{{message}}</p>
+                </label>
+            {% endfor %%}
+        </div>
+        {% endif %}
+		{% if user.is_authenticated %}
+
+		<h3 style="color: blue; font-size:3em;"><b>{{request.user.name}}</b></h3>
+		<h4 style="color: blue; font-size:3em;"><b>{{request.user.email}}</b></h4>
+		<h4 style="color: blue; font-size:3em;"><b>{{request.user.phone}}</b></h4>
+		{% else %}
+		<div class="text-center mt-5">
+			<h3>Login</h3>
+		</div>
+		<form class="login100-form validate-form" method="post" id='login_form'>
+			{% csrf_token %}
+	
+		<div class="m-auto text-center w-50">
+			<input type="text" placeholder="Username" class="w-50 mt-4 p-2" required name="username" value="{{username}}" maxlength="15" minlength="5">
+			<input type="password" placeholder="Password" class="w-50 p-2 mt-4" required id="password" name="password" value="{{password}}">
+			<div class="login-btn text-center mt-4">
+			<button type="submit" class="login100-form-btn btn-primary p-2" id="login_btn"> Login </button>
+			<p class="pt-5">Create a new account? <span><a href="{% url 'website:StudentRegistration' %}">Student</a></span> /  <span><a href="{% url 'website:AdminRegistration' %}">Admin</a></span> </p>
+			</div>
+		</div>
+		</form>
+		{% endif %}
+		
+	</div>
+</section>
+
+{% include "website/layout/footer.html" %}

@@ -1,0 +1,35 @@
+{% include "website/layout/header.html" %}
+
+<section class="pt-5">
+    <div class="container">
+        <div class="text-end">
+        <a class="btn btn-info btn-sm mb-1" style="width:fit-content" href="{% url 'website:student-profile'  %}">Edit Profile</a>
+        </div>
+        <div class="row">
+          
+            <div class="col-lg-4">
+                {% if data.image %}
+                <img src="{{data.image.url}}" alt="" class="w-100">
+                {% endif %}
+            
+            </div>
+            <div class="col-lg-8">
+                <h4>Name: <span class="ms-3">{{data.name}}</span> </h4>
+                <h4>Age: <span class="ms-3">{{data.age}} Years</span> </h4>
+                <h4>DOB: <span class="ms-3">{{data.birth_date|date:"d/m/Y"}}</span> </h4>
+                <h6 class="border-bottom mt-5">
+                    Login Credantials
+                </h6>
+                <h4>Username: <span class="ms-3">{{data.username}}</span> </h4>
+                <h4>Password: <span class="ms-3">{{data.password_text}}</span> </h4>
+
+
+
+            </div>
+        </div>
+
+    
+    </div>
+</section>
+
+{% include "website/layout/footer.html" %}

@@ -1,0 +1,106 @@
+
+<input type="hidden" id="url" name="url" value="{{request.path}}">
+<input type="hidden" id="page" name="page" value="{{page}}">
+{% if messages %}
+<div id="message_div" class="succs-msg">
+    {% for message in messages %}
+        <label class="form-group" style="">
+            <p style="color:green;">{{message}}</p>
+        </label>
+    {% endfor %}
+</div>
+{% endif %}
+
+
+<table class="table border-top table-bordered mb-0 table-hover">
+    <thead>
+        <tr>
+            <th>Sl No</th>
+            <th>Image</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>Mark</th>
+            <th>DOB</th>
+            <th>Age</th>
+      
+            <th>Status</th>
+            {% comment %} <th>Edit<br>Mark</th> {% endcomment %}
+
+        </tr>
+    </thead>
+    <tbody>
+        {% if datas %}
+        {% for i in datas %}
+        <tr>
+            <td>{{forloop.counter0|add:datas.start_index}}</td>
+
+            <td>
+                <a href="{% if i.image %}{{i.image.url}}{% endif %}"
+                    data-lightbox="image-{{ forloop.counter }}" target="_blank">
+                    <img src="{% if i.image %}{{i.image.url}}{% endif %}" style="width:50px;"></a>
+            </td>
+            <td>{{i.name|upper}}</td>
+            <td>{{i.email|upper}}</td>
+            <td>{{i.phone|upper}}</td>
+            <td>
+                <input style="width:50px" type="number" placeholder="Mark" id="mark{{i.id}}" name="mark"  {% if i.marks %} value="{{i.marks}}" {% endif %}>
+                <button class="btn btn-primary mr-1" type="button" onclick="updatestudent({{i.id}})">Update</button>
+            </td>
+            <td>{{i.birth_date|date:"d/m/Y"}}</td>
+            <td>{{i.age}}</td>
+            <td>
+                <div class="material-switch">
+                    <input id="someSwitchOptionSuccess{{i.id}}" name="someSwitchOption001"
+                        type="checkbox" {% if i.is_active %} checked onclick="changefilterstatus(`{{i.id}}`,2)"  {% else %}onclick="changefilterstatus({{i.id}},1)"  {% endif %} />
+                    <label for="someSwitchOptionSuccess{{i.id}}" class="label-success"></label>
+                </div>
+
+            </td>
+
+        </tr>
+        {% endfor %}
+        {% else %}
+        <tr >
+            <td align="center" colspan="7">No Data</td>
+          </tr>
+        {% endif %}
+
+    </tbody>
+</table>
+
+
+<div class="card-body">
+
+    Showing {{ datas.start_index }}-{{ datas.end_index }} of {{ datas.paginator.count }}
+    {% if datas.has_other_pages %}
+    <ul class="pagination">
+        {% if datas.has_previous %}
+        <li class="page-item page-prev">
+            <a class="page-link" href="javascript:void(0)" onclick="return filterstudent('{{ datas.previous_page_number }}');" tabindex="-1">Prev</a>
+        </li>
+        {% else %}
+        <li class="page-item page-prev">
+            <span class="page-link"   tabindex="-1">Prev</span>
+        </li>
+          {% endif %}
+         {% for i in datas.paginator.page_range %}
+        {% if datas.number == i %}
+        <li class="page-item active"><span class="page-link">
+            {{ i }}</span><span class="sr-only">(current)</span></li>
+        {% else %}
+        <li class="page-item"><a class="page-link" href="javascript:void(0)" onclick="return filterstudent('{{ i }}');">{{i}}</a></li>
+          {% endif %}
+        {% endfor %}
+        {% if datas.has_next %}
+        <li class="page-item page-next">
+            <a class="page-link" href="javascript:void(0)" onclick="return filterstudent('{{ datas.next_page_number }}');">Next</a>
+        </li>
+         {% else %}
+        <li class="page-item page-next"><span class="page-link">Next</span></li>
+        {% endif %}
+    </ul>
+    {% endif %}
+    <!-- pagination-wrapper -->
+</div>
+
